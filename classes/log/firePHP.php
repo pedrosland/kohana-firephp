@@ -66,12 +66,14 @@ class Log_FirePHP extends Kohana_Log_Writer {
 			}
 		}
 		
-		$this->fire->info('Stats: '.$app['count']);
+		$this->fire->info(Session::instance()->as_array(), 'Session');
+		
+		$this->fire->group('Stats: '.$app['count']);
 		$this->fire->info('Min:	'.number_format($app['min']['time'], 6).'s '.number_format($app['min']['memory']/1024, 4).'kb');
 		$this->fire->info('Max:	'.number_format($app['max']['time'], 6).'s '.number_format($app['max']['memory']/1024, 4).'kb');
 		$this->fire->info('Average: '.number_format($app['average']['time'], 6).'s '.number_format($app['average']['memory']/1024, 4).'kb');
 		$this->fire->info('Total:	'.number_format($app['total']['time'], 6).'s '.number_format($app['total']['memory']/1024, 4).'kb');
-		
+		$this->fire->groupEnd();
 		//$this->fire->table('Execution stats ('.number_format($endTime, 6).'s '.number_format($endMem, 4).'kb)', $table);
 	}
 	
